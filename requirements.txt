@@ -1,0 +1,4 @@
+pytest>=8
+# V2–V5 tarvitsevat todennäköisesti myös nämä:
+requests>=2.31
+matplotlib>=3.8

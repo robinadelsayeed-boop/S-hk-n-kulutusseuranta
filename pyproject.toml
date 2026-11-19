@@ -1,0 +1,12 @@
+[project]
+name = "sahko"
+version = "0.1.0"
+description = "Pörssisähkön kustannusanalyysi (TX00DT11-projekti)"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
