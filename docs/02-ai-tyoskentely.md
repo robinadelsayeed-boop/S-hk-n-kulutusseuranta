@@ -76,6 +76,6 @@ Ehdotus 19.11.2026, vahvistetaan yhdessä:
 
 **Tilanne:** AI:n testi väittää, että lokakuun 2026 synteettisessä datassa on 2980 varttia.
 
-**Tarkistus:** *(Oskari täydentää: laske käsin 31 vrk × 24 h + 1 lisätunti 25.10. = 745 h × 4 = 2980 varttia ja tarkista, että tulos vastaa testiä.)*
+**Tarkistus:** Lokakuussa oli 31 vuorokautta ja jokaisessa vuorokaudessa 24 tuntia. Tällöin koko kuussa olisi ollut 744 tuntia. Kuitenkin kelloja siirrettiin 25.10. yhdellä tunnilla taaksepäin, jolloin syntyi yksi vuorokausi jossa oli 25 tuntia. Tämän takia lokakuussa oli 745 tuntia. Jokaisessa tunnissa on 4 varttai joten lokakuun varttijako saadaan aikaiseksi kertomalla kuun tunnit varttien määrrällä tunnissa jolloin saadaan 2980 tuntia.
 
-**Päätös:** *(täydennä)*
+**Päätös:** Hyväksytty
