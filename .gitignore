@@ -1,0 +1,20 @@
+# Oikea kulutusdata ja haetut hinnat pysyvät vain omalla koneella (L2)
+data/oma/*
+!data/oma/.gitkeep
+
+# Salaisuudet: ENTSO-E-avain luetaan ympäristömuuttujasta (L2)
+.env
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Editorit ja käyttöjärjestelmä
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
