@@ -15,7 +15,7 @@ Testit ajetaan komennolla `python -m pytest` (ks. [README](../README.md)).
 | V1 | `test_kulutus.py::test_aikavyohykkeellinen_leima_muunnetaan_utc_aikaan` | `+02:00`-leima | oikea UTC-aika | läpi 19.11.2026 | täyttyy |
 | V1 | `test_kulutus.py::test_pilkkuerotin_ja_desimaalipiste` | pilkkuerotin, desimaalipiste | summa 2,0 kWh | läpi 19.11.2026 | täyttyy |
 | V1 | `test_kulutus.py::test_tabulaattorierotin_kuten_excelista_tallennettu` | Datahubin muotoinen rivi tabulaattorein | 1,83 kWh, oikea UTC-aika | läpi 19.11.2026 | täyttyy |
-| V1 | oma Datahub-tiedosto, käsin paikallisesti | 42 628 varttia, 0 virheellistä riviä, summa säilyi; lokakuu 2026 = 825,35 kWh kuten Oma Datahubissa (23.11.2026) | tuonti onnistuu, summa = Datahubin ilmoittama | täyttyy | |
+| V1 | oma Datahub-tiedosto, käsin paikallisesti | 1.9.2025–19.11.2026, tuntitarkkuus | tuonti onnistuu, summa = Datahubin ilmoittama | 42 628 varttia, 0 virheellistä riviä, summa säilyi; lokakuu 2026 = 825,35 kWh kuten Oma Datahubissa (23.11.2026) | täyttyy |
 | V2 | `test_hinnat.py::test_varttihinnat_muunnetaan_snt_kwh` | käsin kirjoitettu ENTSO-E-XML, 4 varttia | 45,67 €/MWh → 4,567 snt/kWh jne., negatiivinen hinta säilyy | läpi 23.11.2026 | täyttyy |
 | V2 | `test_hinnat.py::test_a03_puuttuva_positio_saa_edellisen_hinnan` | XML, josta positio 3 puuttuu | positio 3 = position 2 hinta | läpi 23.11.2026 | rajatapaus hallittu |
 | V2 | `test_hinnat.py::test_tuntihinta_ennen_lokakuuta_2025_kaytetaan_neljalle_vartille` | PT60M, 29.9.2025 | 2 tuntia → 8 varttia samalla hinnalla | läpi 23.11.2026 | täyttyy |
