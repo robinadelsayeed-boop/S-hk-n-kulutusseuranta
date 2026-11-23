@@ -36,20 +36,22 @@ Tee pieniä, katselmoitavia muutoksia ja aja testit ennen kuin sanot jonkin toim
 
 | Työkalu | Malli tai versio, jos tiedossa | Käyttötarkoitus | Miten tuotos tarkistettiin? |
 |---|---|---|---|
-| Claude (claude.ai, agenttitila: tiedostot, Python, Git-luku) | Claude Opus 5.5 | Projektiohjeen ja määrittelyn läpikäynti, repopohja, V1-tuonti, testit, synteettinen data, AGENTS.md ja tämän dokumentin runko (Oskari 19.11.) | Testit ajettu; Oskari luki koodin ja tarkisti varttimäärän ja summan käsin (ks. esimerkit alla) |
-| *(Robin täydentää omat työkalunsa)* | | | |
+| Claude (claude.ai, agenttitila: tiedostot, Python, Git-luku) | Claude Opus 5.5 | Oskari: projektiohjeen ja määrittelyn läpikäynti, repopohja, V1-tuonti, synteettinen data, AGENTS.md ja tämän dokumentin runko (19.11.); V2-hintahaku ja sen testit, varttimäärän laskuvirheen korjaus, dokumenttien päivitys (23.11.) | Testit ajettu; Oskari tarkisti V1:n omalla Datahub-tiedostolla ja V2:n ENTSO-E:n verkkopalvelua vasten (ks. esimerkit 1–3) |
+| *(Robin täydentää: käyttöliittymän ja laskennan tekemisessä käytetyt työkalut)* | | | |
 
 AI:ta käytetty dokumenteissa: määrittelyn ja tämän dokumentin kieliasu ja rakenne. Sisältö (aihe, käyttäjä, vaatimukset, rajaukset) on ryhmän päättämä.
 
 ## Työnjako
 
-Ehdotus 19.11.2026, vahvistetaan yhdessä:
+Sovittu jako (päivitetty 23.11.2026):
 
 | Jäsen | Osuus |
 |---|---|
-| Oskari Luolila | Repon pohja ja käytännöt (`.gitignore`, `.env.example`, README-runko), AI-ohjeet (`AGENTS.md`, tämä dokumentti), V1 kulutuksen tuonti ja testit, synteettinen kulutusdata (L1), Datahubin oikean CSV-muodon tarkistus, oma osuus videosta |
-| Robin Sayeed | V2 hintojen haku ja tallennettu hintatiedosto, V3 kustannuslaskenta, V4 sopimusvertailu, V5 keskihinnat ja kuvaaja, niiden testit |
-| Yhdessä | Validointi oikeaa laskua vasten (03), video ja palautus (04) |
+| Oskari Luolila | Data: V1 kulutuksen tuonti, V2 hintojen haku ja tallennettu hintatiedosto, synteettinen kulutusdata (L1), niiden testit ja tarkistukset. Repon pohja ja käytännöt (`.gitignore`, `.env.example`, README), AI-ohjeet (`AGENTS.md`, tämä dokumentti). |
+| Robin Sayeed | Käyttöliittymä (Streamlit, `app.py`) sekä laskenta: V3 kustannuslaskenta, V4 sopimusvertailu, V5 keskihinnat ja kuvaaja, niiden testit. |
+| Yhdessä | Validointi oikeaa laskua vasten (03), L1-ajo puhtaassa ympäristössä, video ja palautus (04). |
+
+Alkuperäinen sopimus oli, että Oskari hoitaa datan ja Robin käyttöliittymän. Laskenta (V3–V5) sovittiin Robinille 23.11.2026, koska hän oli jo aloittanut sen käyttöliittymän yhteydessä ja Oskarin aika on rajallinen.
 
 ## Prosessi
 

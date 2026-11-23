@@ -26,7 +26,15 @@ ENTSO-E-avainta ei tarvita esimerkkidatan kanssa. Oman hintahaun käyttöön: ko
 
 ## Käyttö
 
-**Kulutuksen tuonti (V1):**
+**Sovellus (selainnäkymä):**
+
+```bash
+PYTHONPATH=src streamlit run app.py      # Windows PowerShell: $env:PYTHONPATH="src"; streamlit run app.py
+```
+
+Selain avautuu osoitteeseen http://localhost:8501. Lataa kulutus-CSV (esim. `data/esimerkki/kulutus_synteettinen_15min.csv`). Sovellus näyttää kulutuksen päivittäin ja varteittain, kustannuksen ja kulutuksella painotetun keskihinnan sekä tuntikuvaajat. Hinnat luetaan tiedostosta `data/esimerkki/hinnat_FI_2026-10.csv`, joten tällä hetkellä hinnat ovat saatavilla vain lokakuulle 2026; muiden jaksojen varteille sovellus ilmoittaa puuttuvan hinnan.
+
+**Kulutuksen tuonti komentoriviltä (V1):**
 
 ```bash
 PYTHONPATH=src python -m sahko.kulutus data/esimerkki/kulutus_synteettinen_15min.csv
@@ -48,7 +56,7 @@ hinnat = lue_hinnat("data/esimerkki/hinnat_FI_2026-10.csv")
 puuttuvat = puuttuvat_vartit(kulutus.vartit, hinnat)   # puuttuvaa hintaa ei käsitellä nollana
 ```
 
-*(V3–V5:n käyttöohjeet lisätään toteutuksen edetessä.)*
+*(V3–V5:n käyttöohjeet täydennetään, kun marginaali, perusmaksu, ALV ja sopimusvertailu on toteutettu.)*
 
 ## Testit
 
@@ -62,11 +70,13 @@ Testit on kytketty vaatimuksiin tiedostossa [docs/03-testaus-ja-validointi.md](d
 
 | Polku | Sisältö |
 |---|---|
+| `app.py` | Streamlit-käyttöliittymä |
 | `src/sahko/kulutus.py` | V1: Datahubin CSV:n tuonti 15 min UTC-aikasarjaksi |
 | `src/sahko/hinnat.py` | V2: ENTSO-E-hintojen haku, tallennus ja luku |
+| `src/sahko/laskenta.py` | V3/V5: kulutuksen ja hintojen yhdistäminen, kustannus ja painotettu keskihinta |
 | `scripts/hae_hinnat.py` | V2: hintojen haku komentoriviltä tiedostoon |
 | `scripts/generoi_synteettinen_kulutus.py` | Synteettisen kulutusdatan tuottaja |
-| `data/esimerkki/` | Repoon tallennettu synteettinen data (L1) |
+| `data/esimerkki/` | Repoon tallennettu synteettinen kulutusdata ja lokakuun 2026 hintatiedosto (L1) |
 | `data/oma/` | Oma kulutusdata ja haetut hinnat, ei repossa (L2) |
 | `tests/` | pytest-testit |
 
@@ -85,14 +95,18 @@ python scripts/generoi_synteettinen_kulutus.py --alku 2026-10-01 --loppu 2026-11
 
 ## Työn tila
 
+Tilanne 23.11.2026.
+
 | Osa | Tila | Vastuu |
 |---|---|---|
 | Repon pohja, `.gitignore`, AI-ohjeet | valmis | Oskari |
-| V1 kulutuksen tuonti + testit | valmis; Datahubin muoto tarkistettu, ajo omalla tiedostolla raportoitava | Oskari |
+| V1 kulutuksen tuonti + testit | valmis; tarkistettu omalla Datahub-tiedostolla | Oskari |
 | L1 synteettinen kulutusdata | valmis | Oskari |
-| V2 hintojen haku ja tallennettu hintatiedosto | haku ja testit valmiit, hintatiedosto ja vertailu ENTSO-E:n verkkopalveluun tekemättä | Oskari |
-| V3 kustannuslaskenta | tekemättä | Robin |
-| V4 sopimusvertailu | tekemättä | Robin |
-| V5 keskihinnat ja kuvaaja | tekemättä | Robin |
+| V2 hintojen haku, tallennettu hintatiedosto + testit | valmis; tarkistettu ENTSO-E:n verkkopalvelua vasten | Oskari |
+| Käyttöliittymä (Streamlit, `app.py`) | kulutus-, kustannus- ja tuntinäkymät tehty | Robin |
+| V3 kustannuslaskenta | aloitettu: kulutus × pörssihinta, kustannus yhteensä ja valitulle päivälle; marginaali, perusmaksu, ALV ja testit tekemättä | Robin |
+| V4 sopimusvertailu ja tasapainohinta | tekemättä | Robin |
+| V5 keskihinnat ja kuvaaja | painotettu keskihinta ja tuntikuvaajat tehty; jakson keskihinta, kellonaikakuvaaja ja testit tekemättä | Robin |
 | Validointi oikeaa laskua vasten | tekemättä | sovitaan |
+| L1 ajo puhtaassa ympäristössä | ennen palautusta | sovitaan |
 | Video, `04-palautus.md` | tekemättä | yhdessä |

@@ -5,7 +5,8 @@ description = "Pörssisähkön kustannusanalyysi (TX00DT11-projekti)"
 requires-python = ">=3.10"
 dependencies = [
     "streamlit",
-    "plotly"
+    "plotly",
+    "pandas"
 ]
 
 [tool.setuptools.packages.find]

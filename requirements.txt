@@ -1,4 +1,6 @@
+# Testit
 pytest>=8
-# V2–V5 tarvitsevat todennäköisesti myös nämä:
-requests>=2.31
-matplotlib>=3.8
+# Käyttöliittymä (app.py) ja laskenta (src/sahko/laskenta.py)
+streamlit>=1.40
+plotly>=5.20
+pandas>=2.2
