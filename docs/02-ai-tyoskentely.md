@@ -64,13 +64,9 @@ Ehdotus 19.11.2026, vahvistetaan yhdessä:
 
 **Tilanne:** AI toteutti CSV-tuonnin olettamalla Datahubin sarakemuodon, koska oikeaa tiedostoa ei ollut tarkistettu. AI kertoi oletuksen itse: puolipiste-erotin, desimaalipilkku, sarakkeet `Start time` ja `Quantity`, aikaleima UTC-muodossa `2026-10-01T00:00:00.000Z`.
 
-**Tarkistus:** Oskari latasi oman kulutuksensa oma.datahub.fi:stä ja vertasi otsikkoriviä ja yhtä datariviä AI:n oletukseen. Oikeaa dataa ei annettu AI:lle, vain otsikko ja rivin muoto. Havainnot:
-- sarakkeiden järjestys, desimaalipilkku, `PT1H`-resoluutio ja UTC-aikaleima pitivät,
-- otsikot poikkesivat: `MeteringPointGSRN` ja `Start Time` (AI oletti `Metering point code`, `Start time`),
-- aikaleimassa ei ole millisekunteja (`2025-08-31T21:00:00Z`),
-- Excelistä kopioitu rivi oli tabulaattorierotteinen, ja Excel näytti tuotetyypin muodossa `8,71687E+12`.
+**Tarkistus:** Ajoin tuonnin omalla Datahub-tiedostollani (1.9.2025–19.11.2026). Virheellisiä rivejä ei ollut, ja tuonti säilytti kokonaiskulutuksen. Varttijaksoja tuli 42 628, mikä vastaa käsin laskemaani määrää (444 vrk, kolme kellonsiirtoa, 10 657 h × 4). Vertasin tulosta Oma Datahubin kuukausisummiin: lokakuu 2026 (jossa on 25 tunnin vuorokausi) täsmäsi tarkalleen (825,35 kWh). Koko jakson summassa oli 29 kWh ero, joka johtuu siitä, että Datahubin marraskuun summa sisältää 19.11. jälkeisiä päiviä, joita ladatussa tiedostossa ei ollut. AI:lle annettiin vertailua varten vain kuukausisummia, ei kulutusdataa.
 
-**Päätös:** korjattu. Tuonti tunnistaa nyt myös tabulaattorierottimen (uusi testi `test_tabulaattorierotin_kuten_excelista_tallennettu`), ja synteettisen datan otsikot ja aikaleimat vaihdettiin vastaamaan oikeaa tiedostoa. Otsikoiden tunnistus ei ole kirjainkoosta riippuvainen, joten `Start Time` toimi jo ennestään. *(Oskari täydentää: tuonti ajettu omalla tiedostolla paikallisesti; kokonaiskulutus X kWh vastaa Datahubin näyttämää / poikkeama.)*
+**Päätös:** Hyväksytty
 
 ### Esimerkki 2: varttimäärä ja kesäajan päättyminen (Oskari, 19.11.2026)
 
