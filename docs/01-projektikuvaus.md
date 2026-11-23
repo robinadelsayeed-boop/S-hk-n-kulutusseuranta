@@ -78,5 +78,5 @@ Toteutuskieli on alustavasti Python. Käyttöliittymä (komentorivi tai yksinker
 
 | Päivämäärä | Muutos | Perustelu |
 |---|---|---|
-| 9.11.2026 | Aihe vaihdettu HSL-bussien täsmällisyysanalyysista pörssisähkön kustannusanalyysiin. | [Kirjoittakaa oma perustelunne] |
+| 9.11.2026 | Aihe vaihdettu HSL-bussien täsmällisyysanalyysista pörssisähkön kustannusanalyysiin. | Konsepti tuntui hyödyttömältä |
 | 9.11.2026 | Kulutuksen siirron säästölaskelma ja laitekohtainen erittely rajattu ulos. | Datahubin data on kokonaiskulutusta, eikä siitä voi päätellä laitteiden kulutusta. |
