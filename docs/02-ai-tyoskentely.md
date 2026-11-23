@@ -79,3 +79,32 @@ Ehdotus 19.11.2026, vahvistetaan yhdessä:
 **Tarkistus:** Lokakuussa oli 31 vuorokautta ja jokaisessa vuorokaudessa 24 tuntia. Tällöin koko kuussa olisi ollut 744 tuntia. Kuitenkin kelloja siirrettiin 25.10. yhdellä tunnilla taaksepäin, jolloin syntyi yksi vuorokausi jossa oli 25 tuntia. Tämän takia lokakuussa oli 745 tuntia. Jokaisessa tunnissa on 4 varttai joten lokakuun varttijako saadaan aikaiseksi kertomalla kuun tunnit varttien määrrällä tunnissa jolloin saadaan 2980 tuntia.
 
 **Päätös:** Hyväksytty
+
+### Esimerkki 3: V2 hinnat ENTSO-E:stä (Oskari, 23.11.2026)
+
+**Tilanne:** AI toteutti hintahaun ENTSO-E:n dokumentoidun XML-rakenteen perusteella, mutta ei voinut ajaa oikeaa hakua (ei verkkoyhteyttä ENTSO-E:hen eikä avainta, jota ei anneta AI:lle). AI oletti, että ENTSO-E jättää pois pisteet, joiden hinta on sama kuin edellisen (käyrätyyppi A03), ja täyttää ne edellisellä hinnalla.
+
+**Tarkistus:** 
+
+1. Ajoin hintahaun omalla koneellani lokakuulle 2026. Ensimmäinen ajo tallensi 2980 varttihintaa,
+   mutta skripti ilmoitti jakson pituudeksi 2976 varttia. Huomasin, että luvut eivät täsmää,
+   koska lokakuussa on kesäajan päättymisen takia 745 tuntia eli 2980 varttia.
+   Syy oli skriptin varttimäärän laskussa: se laski Suomen ajan aikaleimojen erotuksen
+   seinäkelloaikana eikä huomioinut 25.10. lisätuntia. Itse hinnat olivat oikein.
+   AI korjasi laskennan UTC-aikaan ja lisäsi testin (`test_varttien_maara_huomioi_kellonsiirrot`).
+   Korjauksen jälkeen skripti ilmoitti 2980 varttia.
+
+2. Valitsin tiedostosta satunnaisesti kuusi varttia ja vertasin niitä ENTSO-E:n verkkopalveluun
+   (Market → Energy Prices [12.1.D], BZN|FI, aikavyöhyke UTC). Tiedoston arvo (snt/kWh) × 10
+   pitää olla sama kuin verkkopalvelun €/MWh.
+
+| Vartti (UTC) | Tiedosto snt/kWh | × 10 = €/MWh | Verkkopalvelu €/MWh | Täsmää? |
+|---|---|---|---|---|
+| 2026-10-02 17:15 | 4,999 | 49,99 | 49,99 | Täsmää |
+| 2026-10-11 19:30 | 3,789 | 37,89 | 37,89 | Täsmää |
+| 2026-10-12 08:00 | 17,086 | 170,86 | 170,86 | Täsmää |
+| 2026-10-16 23:45 | 1,499 | 14,99 | 14,99 | Täsmää |
+| 2026-10-23 02:00 | 0,714 | 7,14 | 7,14 | Täsmää |
+| 2026-10-28 12:00 | 1,000 | 10,00 | 10,00 | Täsmää |
+
+**Päätös:** Varttimäärän laskenta korjattu. Hintahaku hyväksytty, koska koska kaikki 5 + 1 hintaa täsmäävät.
