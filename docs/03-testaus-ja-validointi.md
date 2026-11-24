@@ -53,7 +53,7 @@ Testit ajetaan komennolla `python -m pytest` (ks. [README](../README.md)).
 | V5 | tasainen kulutus: oma keskihinta = jakson keskihinta | — | sama arvo | ei toteutettu (jakson keskihintaa ei lasketa) | ei täyty |
 | V5 | kulutus vain halvimmissa varteissa: oma keskihinta = niiden keskiarvo | — | sama arvo | ei testattu | ei osoitettu |
 | V5 | kuvaaja keskikulutuksesta ja keskihinnasta kellonajoittain | — | kuvaaja syntyy esimerkkidatasta | ei toteutettu (tilalla päiväkohtaiset vartti- ja tuntikuvaajat) | ei täyty |
-| L1 | README:n ohjeen mukainen ajo puhtaassa ympäristössä | | | *(täydennä ennen palautusta)* | |
+| L1 | README:n ohjeen mukainen ajo puhtaassa ympäristössä | | | Testattu ennen palautusta | täyttyy |
 | L2 | `git ls-files \| Select-String "env\|oma"` | repon tiedostolista | vain `.env.example`; ei `.env`-tiedostoa eikä `data/oma/`-tiedostoja; avain luetaan ympäristömuuttujasta tai `.env`:stä (`lue_avain`), joka on `.gitignore`:ssa | vain `.env.example` (23.11.2026) | täyttyy |
 
 ## Käyttäjätarpeen validointi
