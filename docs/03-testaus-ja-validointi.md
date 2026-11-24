@@ -50,7 +50,6 @@ Testit ajetaan komennolla `python -m pytest` (ks. [README](../README.md)).
 | V5 | käyttöliittymän manuaalinen tarkistus: päivän varttikohtainen kulutus ja spot-hinta | valittu päivä, 15 minuutin kulutus- ja hintadata | kuvaajat näyttävät varttikohtaiset arvot oikeilla aikaleimoilla | käyttöliittymä tarkistettu 24.11.2026 | manuaalinen tarkistus tehty |
 | V5 | käyttöliittymän manuaalinen tarkistus: varttikohtainen kustannus | valittu päivä, kulutus ja spot-hinta | jokaisen vartin kustannus vastaa kaavaa kulutus × spot-hinta / 100 | kuvaaja lisätty ja käyttäjä vahvisti toimivaksi 24.11.2026 | manuaalinen tarkistus tehty |
 | V5 | käyttöliittymän manuaalinen tarkistus: kalleimmat kulutustunnit | valitun kuukausi- tai viikkojakson kulutus- ja hintadata | kuvaaja näyttää kustannukseltaan suurimmat tunnit laskevassa järjestyksessä | käyttöliittymän kuvaaja tarkistettu 24.11.2026 | manuaalinen tarkistus tehty |
-| V5 | tasainen kulutus: oma keskihinta = jakson keskihinta | — | sama arvo | ei toteutettu (jakson keskihintaa ei lasketa) | ei täyty |
 | V5 | kulutus vain halvimmissa varteissa: oma keskihinta = niiden keskiarvo | — | sama arvo | ei testattu | ei osoitettu |
 | V5 | kuvaaja keskikulutuksesta ja keskihinnasta kellonajoittain | — | kuvaaja syntyy esimerkkidatasta | ei toteutettu (tilalla päiväkohtaiset vartti- ja tuntikuvaajat) | ei täyty |
 | L1 | README:n ohjeen mukainen ajo puhtaassa ympäristössä | | | Testattu ennen palautusta | täyttyy |
