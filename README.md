@@ -16,9 +16,10 @@ Ohjelmisto yhdistää kotitalouden toteutuneen sähkönkulutuksen (Fingridin Dat
 
 Vaatii [Gitin](https://git-scm.com/) ja [Pythonin](https://www.python.org/downloads/) 3.10 tai uudemman. API-avainta ei tarvita: repossa on esimerkkidata, jolla kaikki toimii.
 
-**Windows (PowerShell):**
+**Windows (PowerShell):** avaa PowerShell tavallisena käyttäjänä (ei järjestelmänvalvojana). Ensimmäinen komento siirtää sinut Tiedostot-kansioon, johon projekti kloonataan.
 
 ```powershell
+cd $HOME\Documents
 git clone https://github.com/robinadelsayeed-boop/S-hk-n-kulutusseuranta.git
 cd S-hk-n-kulutusseuranta
 python -m venv .venv
@@ -31,6 +32,7 @@ streamlit run app.py
 **macOS / Linux:**
 
 ```bash
+cd ~
 git clone https://github.com/robinadelsayeed-boop/S-hk-n-kulutusseuranta.git
 cd S-hk-n-kulutusseuranta
 python3 -m venv .venv
