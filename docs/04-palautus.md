@@ -1,8 +1,8 @@
 # Palautus
 
 - Palautuspäivä: 24.11.2026
-- Arvioitava versio (täydellinen commit-tunniste): ilmoitetaan Moodlessa
-- Video: *(OneDrive-linkki, katseluoikeus organisaation henkilöille)*
+- Arvioitava versio (täydellinen commit-tunniste): 73b89db
+- Video: [*(OneDrive-linkki, katseluoikeus organisaation henkilöille)*](https://metropoliafi-my.sharepoint.com/:v:/g/personal/oskarjlu_metropolia_fi/IQDQ2F-VmcHhRrg8wlyvHgYPAVt0TJ85-nzdlxs1HJvcdyc?e=qXUXkU&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
 ## Ohjeet arvioijalle
 
