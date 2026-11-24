@@ -36,7 +36,7 @@ Tee pieniä, katselmoitavia muutoksia ja aja testit ennen kuin sanot jonkin toim
 
 | Työkalu | Malli tai versio, jos tiedossa | Käyttötarkoitus | Miten tuotos tarkistettiin? |
 |---|---|---|---|
-| Claude (claude.ai, agenttitila: tiedostot, Python, Git-luku) | Claude Opus 5.5 | Oskari: projektiohjeen ja määrittelyn läpikäynti, repopohja, V1-tuonti, synteettinen data, AGENTS.md ja tämän dokumentin runko (19.11.); V2-hintahaku ja sen testit, varttimäärän laskuvirheen korjaus, dokumenttien päivitys (23.11.) | Testit ajettu; Oskari tarkisti V1:n omalla Datahub-tiedostolla ja V2:n ENTSO-E:n verkkopalvelua vasten (ks. esimerkit 1–3) |
+| Claude (claude.ai, agenttitila: tiedostot, Python, Git-luku) | Claude Opus 5.5 | Oskari: projektiohjeen ja määrittelyn läpikäynti, repopohja, V1-tuonti, synteettinen data, AGENTS.md ja tämän dokumentin runko (19.11.); V2-hintahaku ja sen testit, varttimäärän laskuvirheen korjaus, dokumenttien päivitys (23.11.); README:n asennusohjeen ja dokumenttien päivitys palautusta varten sekä videon käsikirjoitusrunko (24.11.) | Testit ajettu; Oskari tarkisti V1:n omalla Datahub-tiedostolla ja V2:n ENTSO-E:n verkkopalvelua vasten (ks. esimerkit 1–3) |
 | *(Robin täydentää: käyttöliittymän ja laskennan tekemisessä käytetyt työkalut)* | | | |
 
 AI:ta käytetty dokumenteissa: määrittelyn ja tämän dokumentin kieliasu ja rakenne. Sisältö (aihe, käyttäjä, vaatimukset, rajaukset) on ryhmän päättämä.

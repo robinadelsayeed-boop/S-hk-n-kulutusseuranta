@@ -28,43 +28,56 @@ Testit ajetaan komennolla `python -m pytest` (ks. [README](../README.md)).
 | V2 | `test_hinnat.py::test_avain_luetaan_ymparistomuuttujasta` | `ENTSOE_API_KEY` | avain luetaan | läpi 23.11.2026 | täyttyy (L2) |
 | V2 | haku ENTSO-E:stä, lokakuu 2026, käsin | `scripts/hae_hinnat.py` | 2980 varttihintaa, ei puuttuvia | 2980 varttihintaa, ei puuttuvia (23.11.2026, korjauksen jälkeen; ensimmäinen ajo paljasti varttimäärän laskuvirheen, ks. 02 esimerkki 3) | täyttyy |
 | V2 | satunnaiset arvot vs. ENTSO-E:n verkkopalvelu, käsin | tallennettu hintatiedosto | arvot × 10 täsmäävät verkkopalvelun €/MWh-arvoihin | kaikki tarkistetut arvot täsmäsivät (6/6, ks. 02 esimerkki 3, 23.11.2026) | täyttyy |
-| V3 | `test_laskenta.py::test_spot_kustannukset_lasketaan_oikein` | 1 kWh hinnalla 10 snt/kWh ja 2 kWh hinnalla 20 snt/kWh | kustannukset 0,10 € ja 0,40 €, yhteensä 0,50 € | testi laadittu; projektissa ajettava | odottaa ajoa |
-| V3 | `test_laskenta.py::test_kulutuspainotettu_keskihinta_lasketaan_oikein` | sama kahden vartin testidata | kulutuspainotettu keskihinta 16,6667 snt/kWh | testi laadittu; projektissa ajettava | odottaa ajoa |
-| V3 | `test_laskenta.py::test_negatiivinen_spot_hinta_vahentaa_kustannusta` | 2 kWh hinnalla −10 snt/kWh | kustannus −0,20 € ja keskihinta −10 snt/kWh | testi laadittu; projektissa ajettava | odottaa ajoa |
-| V3 | `test_laskenta.py::test_puuttuvaa_spot_hintaa_ei_lasketa_nollahinnalla` | kahden vartin kulutus, toiselta vartilta puuttuu hinta | puuttuva vartti raportoidaan eikä sitä lasketa nollahinnalla | testi laadittu; projektissa ajettava | odottaa ajoa |
-| V3 | `test_laskenta.py::test_tyhjalla_syotteella_palautetaan_tyhma_tulos` | tyhjät kulutus- ja hintasanakirjat | tyhjä tulos, kustannus ja kulutus 0, keskihinta `None` | testi laadittu; projektissa ajettava | odottaa ajoa |
-| V3 | `test_laskenta.py::test_nollakulutuksella_keskihinta_on_none` | nollakulutus ja saatavilla oleva hinta | kustannus 0 ja keskihinta `None` | testi laadittu; projektissa ajettava | odottaa ajoa |
-| V3 | `test_laskenta.py::test_marginaalikustannus_lasketaan_oikein` | 100 kWh ja marginaali 0,5 snt/kWh | marginaalikustannus 0,50 € | testi laadittu; projektissa ajettava | odottaa ajoa |
-| V3 | `test_laskenta.py::test_nollamarginaali_ei_aiheuta_kustannusta` | 100 kWh ja marginaali 0 snt/kWh | marginaalikustannus 0,00 € | testi laadittu; projektissa ajettava | odottaa ajoa |
-| V3 | `test_laskenta.py::test_virheelliset_marginaalilaskennan_arvot_hylataan` | negatiivinen kulutus tai marginaali sekä ei-äärelliset arvot | virheelliset arvot hylätään | testi laadittu; projektissa ajettava | odottaa ajoa |
-| V4 | `test_laskenta.py::test_v4_vertailu_vastaa_kasinalaskua` | 3 kWh, spot-hinnat 10 ja 20 snt/kWh, marginaali 0,50 snt/kWh, perusmaksut 5 € ja 3 €, ALV 25,5 % | spot 5,646325 €, kiinteä 3,4518 €, erotus −2,194525 € | testi lisätty; ajo vahvistamatta | odottaa ajoa |
-| V4 | `test_laskenta.py::test_tasapainohinnalla_erotus_on_nolla` | sama kulutus ja hinnat; kiinteäksi hinnaksi laskettu tasapainohinta | kustannusero 0,00 € | testi lisätty; ajo vahvistamatta | odottaa ajoa |
-| V4 | `test_laskenta.py::test_perusmaksu_jaksotetaan_osittaiselle_kuukaudelle` | yksi päivä lokakuussa 2026, kuukausimaksu 5 € | 5 €/31 päivää | testi lisätty; ajo vahvistamatta | odottaa ajoa |
-| V4 | `test_laskenta.py::test_vertailu_hylkaa_puuttuvan_spot_hinnan` | kahden vartin kulutus, toiselta vartilta puuttuu hinta | vertailu keskeytetään; puuttuvaa hintaa ei käsitellä nollana | testi lisätty; ajo vahvistamatta | odottaa ajoa |
-| V4 | `test_laskenta.py::test_vertailu_hylkaa_nollakulutuksen` | nollakulutus | vertailu keskeytetään virheilmoituksella | testi lisätty; ajo vahvistamatta | odottaa ajoa |
-| V4 | `test_laskenta.py::test_vertailu_hylkaa_negatiiviset_sopimusarvot` | negatiivinen marginaali, perusmaksu, kiinteä hinta tai ALV | virheelliset arvot hylätään | testi lisätty; ajo vahvistamatta | odottaa ajoa |
+| V3 | kesäaikaan siirtymisen (29.3.2026, 23 h) ja siitä palaamisen (25.10.2026, 25 h) vuorokausien summat | — | summat oikein | ei testattu | ei osoitettu |
+| V3 | yhden vuorokauden kustannus vs. taulukkolaskennalla käsin laskettu, 0,01 € tarkkuus | — | sama arvo | ei tehty | ei osoitettu |
+| V3 | `test_laskenta.py::test_spot_kustannukset_lasketaan_oikein` | 1 kWh hinnalla 10 snt/kWh ja 2 kWh hinnalla 20 snt/kWh | kustannukset 0,10 € ja 0,40 €, yhteensä 0,50 € | läpi 24.11.2026 | täyttyy |
+| V3 | `test_laskenta.py::test_kulutuspainotettu_keskihinta_lasketaan_oikein` | sama kahden vartin testidata | kulutuspainotettu keskihinta 16,6667 snt/kWh | läpi 24.11.2026 | täyttyy |
+| V3 | `test_laskenta.py::test_negatiivinen_spot_hinta_vahentaa_kustannusta` | 2 kWh hinnalla −10 snt/kWh | kustannus −0,20 € ja keskihinta −10 snt/kWh | läpi 24.11.2026 | täyttyy |
+| V3 | `test_laskenta.py::test_puuttuvaa_spot_hintaa_ei_lasketa_nollahinnalla` | kahden vartin kulutus, toiselta vartilta puuttuu hinta | puuttuva vartti raportoidaan eikä sitä lasketa nollahinnalla | läpi 24.11.2026 | täyttyy |
+| V3 | `test_laskenta.py::test_tyhjalla_syotteella_palautetaan_tyhma_tulos` | tyhjät kulutus- ja hintasanakirjat | tyhjä tulos, kustannus ja kulutus 0, keskihinta `None` | läpi 24.11.2026 | täyttyy |
+| V3 | `test_laskenta.py::test_nollakulutuksella_keskihinta_on_none` | nollakulutus ja saatavilla oleva hinta | kustannus 0 ja keskihinta `None` | läpi 24.11.2026 | täyttyy |
+| V3 | `test_laskenta.py::test_marginaalikustannus_lasketaan_oikein` | 100 kWh ja marginaali 0,5 snt/kWh | marginaalikustannus 0,50 € | läpi 24.11.2026 | täyttyy |
+| V3 | `test_laskenta.py::test_nollamarginaali_ei_aiheuta_kustannusta` | 100 kWh ja marginaali 0 snt/kWh | marginaalikustannus 0,00 € | läpi 24.11.2026 | täyttyy |
+| V3 | `test_laskenta.py::test_virheelliset_marginaalilaskennan_arvot_hylataan` | negatiivinen kulutus tai marginaali sekä ei-äärelliset arvot | virheelliset arvot hylätään | läpi 24.11.2026 | täyttyy |
+| V4 | `test_laskenta.py::test_v4_vertailu_vastaa_kasinalaskua` | 3 kWh, spot-hinnat 10 ja 20 snt/kWh, marginaali 0,50 snt/kWh, perusmaksut 5 € ja 3 €, ALV 25,5 % | spot 5,646325 €, kiinteä 3,4518 €, erotus −2,194525 € | läpi 24.11.2026 | täyttyy |
+| V4 | `test_laskenta.py::test_tasapainohinnalla_erotus_on_nolla` | sama kulutus ja hinnat; kiinteäksi hinnaksi laskettu tasapainohinta | kustannusero 0,00 € | läpi 24.11.2026 | täyttyy |
+| V4 | `test_laskenta.py::test_perusmaksu_jaksotetaan_osittaiselle_kuukaudelle` | yksi päivä lokakuussa 2026, kuukausimaksu 5 € | 5 €/31 päivää | läpi 24.11.2026 | täyttyy |
+| V4 | `test_laskenta.py::test_vertailu_hylkaa_puuttuvan_spot_hinnan` | kahden vartin kulutus, toiselta vartilta puuttuu hinta | vertailu keskeytetään; puuttuvaa hintaa ei käsitellä nollana | läpi 24.11.2026 | täyttyy |
+| V4 | `test_laskenta.py::test_vertailu_hylkaa_nollakulutuksen` | nollakulutus | vertailu keskeytetään virheilmoituksella | läpi 24.11.2026 | täyttyy |
+| V4 | `test_laskenta.py::test_vertailu_hylkaa_negatiiviset_sopimusarvot` | negatiivinen marginaali, perusmaksu, kiinteä hinta tai ALV | virheelliset arvot hylätään | läpi 24.11.2026 | täyttyy |
 | V4 | käyttöliittymän manuaalinen tarkistus | synteettinen kulutus- ja hintadata sekä sopimuksen syöttöarvot | vertailu näyttää spot- ja kiinteän sopimuksen kokonaiskustannukset, erotuksen, tasapainohinnan ja kustannuserittelyn | käyttöliittymän toiminta tarkistettu 24.11.2026; käyttäjä vahvisti toimivan | manuaalinen tarkistus tehty |
 | V5 | käyttöliittymän manuaalinen tarkistus: päivittäinen kulutus | ladattu kulutusdata, kuukausi- ja viikkonäkymä | päivittäiset pylväät vastaavat valitun aikavälin kulutusta; päivän valinta päivittää päiväkohtaisen näkymän | käyttöliittymän asettelu ja toiminta tarkistettu 24.11.2026 | manuaalinen tarkistus tehty |
 | V5 | käyttöliittymän manuaalinen tarkistus: päivän varttikohtainen kulutus ja spot-hinta | valittu päivä, 15 minuutin kulutus- ja hintadata | kuvaajat näyttävät varttikohtaiset arvot oikeilla aikaleimoilla | käyttöliittymä tarkistettu 24.11.2026 | manuaalinen tarkistus tehty |
 | V5 | käyttöliittymän manuaalinen tarkistus: varttikohtainen kustannus | valittu päivä, kulutus ja spot-hinta | jokaisen vartin kustannus vastaa kaavaa kulutus × spot-hinta / 100 | kuvaaja lisätty ja käyttäjä vahvisti toimivaksi 24.11.2026 | manuaalinen tarkistus tehty |
 | V5 | käyttöliittymän manuaalinen tarkistus: kalleimmat kulutustunnit | valitun kuukausi- tai viikkojakson kulutus- ja hintadata | kuvaaja näyttää kustannukseltaan suurimmat tunnit laskevassa järjestyksessä | käyttöliittymän kuvaaja tarkistettu 24.11.2026 | manuaalinen tarkistus tehty |
+| V5 | tasainen kulutus: oma keskihinta = jakson keskihinta | — | sama arvo | ei toteutettu (jakson keskihintaa ei lasketa) | ei täyty |
+| V5 | kulutus vain halvimmissa varteissa: oma keskihinta = niiden keskiarvo | — | sama arvo | ei testattu | ei osoitettu |
+| V5 | kuvaaja keskikulutuksesta ja keskihinnasta kellonajoittain | — | kuvaaja syntyy esimerkkidatasta | ei toteutettu (tilalla päiväkohtaiset vartti- ja tuntikuvaajat) | ei täyty |
 | L1 | README:n ohjeen mukainen ajo puhtaassa ympäristössä | | | *(täydennä ennen palautusta)* | |
 | L2 | `git ls-files \| Select-String "env\|oma"` | repon tiedostolista | vain `.env.example`; ei `.env`-tiedostoa eikä `data/oma/`-tiedostoja; avain luetaan ympäristömuuttujasta tai `.env`:stä (`lue_avain`), joka on `.gitignore`:ssa | vain `.env.example` (23.11.2026) | täyttyy |
 
 ## Käyttäjätarpeen validointi
 
-*(S1: laskettu energiakustannus vs. todellinen pörssisähkölasku samalta jaksolta, erotus ja syyt. S2 ja S3: auttoivatko tulokset tekemään päätöksen.)*
+Määrittelyssä suunniteltua vertailua todelliseen pörssisähkölaskuun (S1) ei ehditty tehdä. Kustannuslaskennan oikeellisuutta ei siis ole varmistettu oikeaa laskua vasten. Arvio S2:n ja S3:n hyödyllisyydestä perustuu tekijöiden omaan kokeiluun sovelluksella, ei ulkopuolisiin käyttäjiin.
+
+Kulutuksen tuonti on validoitu oikealla datalla: oma Datahub-tiedosto (1.9.2025–19.11.2026) tuotiin ilman virheitä, ja lokakuun 2026 kulutus täsmäsi Oma Datahubin kuukausisummaan (ks. 02, esimerkki 1). Hintadata on validoitu ENTSO-E:n verkkopalvelua vasten (ks. 02, esimerkki 3).
 
 ## Tunnetut puutteet ja rajoitukset
 
-- V1: Datahubin CSV-muoto tarkistettu otsikkorivin ja yhden rivin perusteella 19.11.2026 (ks. 02, esimerkki 1). Tuontia omalla koko tiedostolla ei ole vielä raportoitu. Tuonti tunnistaa sarakkeet otsikoiden perusteella; poikkeavat otsikot lisätään `SARAKEALIAKSET`-listaan.
-- Synteettinen data ei vastaa todellista kulutusta.
-- V2: verkkohakua ei testata automaattisesti (vaatii avaimen ja verkon). XML-jäsennys on testattu käsin kirjoitetuilla vastauksilla ENTSO-E:n dokumentoidun rakenteen mukaan; oikea vastaus tarkistetaan käsin hakemalla.
-- Käyttöliittymän manuaalinen tarkistus ei korvaa erillistä laskennan yksikkötestausta.
-  
+Projekti palautetaan 24.11.2026 tilassa, jossa V1, V2 ja V4 täyttyvät, mutta V3 ja V5 ovat osittaisia.
+
+- **V3:** marginaali, perusmaksu ja ALV ovat mukana vain sopimusvertailussa. Sovelluksen yläreunan kustannus sekä päivä- ja varttikohtaiset kustannukset ovat pelkkää spot-kustannusta (kulutus × pörssihinta). Kesäaikapäivien summille ja käsin lasketulle vuorokaudelle ei ole testejä.
+- **V5:** kulutuksella painotettu keskihinta on toteutettu ja testattu, mutta jakson tavallista keskihintaa ja kellonaikakuvaajaa ei toteutettu. Siksi kulutuksen ajoitusta ei voi suoraan verrata jakson keskihintaan.
+- **Validointi:** vertailu todelliseen sähkölaskuun puuttuu (ks. yllä).
+- **Rajaus:** sovellus laskee vain sähköenergian kustannuksen. Siirtomaksut ja sähkövero eivät ole mukana, joten tulosta voi verrata vain laskun energiaosuuteen.
+- **Hinnat:** tallennettu hintatiedosto kattaa vain lokakuun 2026. Muille jaksoille hinnat haetaan ENTSO-E:stä, mikä vaatii oman API-avaimen.
+- **V2:** verkkohakua ei testata automaattisesti, koska se vaatii avaimen ja verkon. XML-jäsennys on testattu käsin kirjoitetuilla vastauksilla ENTSO-E:n dokumentoidun rakenteen mukaan, ja oikea haku on tarkistettu käsin.
+- Synteettinen kulutusdata ei vastaa todellista kulutusta.
+- Käyttöliittymän manuaalinen tarkistus ei korvaa laskennan yksikkötestausta.
+
 ## Manuaalisen käyttöliittymätestauksen rajaus
 
-V4:n sopimusvertailun sekä V5:n kuvaajien käyttöliittymätoiminta tarkistetaan manuaalisesti. Laskennan oikeellisuus varmistettiin aikasemmilla laskenta.py:hyb kohdistetuilla testeillä, joten kuvaajille ei tehdä päällekkäisiä laskentatestejä, kun ne esittävät jo testattujen laskentafunktioiden tuottamia arvoja. Manuaalisessa tarkistuksessa keskitytään siihen, että oikeat kuvaajat näkyvät, valinnat toimivat, aikaleimat ja yksiköt ovat ymmärrettäviä ja arvot esitetään oikeissa näkymissä.
+V4:n sopimusvertailun sekä V5:n kuvaajien käyttöliittymätoiminta tarkistetaan manuaalisesti. Laskennan oikeellisuus varmistettiin aiemmilla `laskenta.py`:hyn kohdistetuilla testeillä, joten kuvaajille ei tehdä päällekkäisiä laskentatestejä, kun ne esittävät jo testattujen laskentafunktioiden tuottamia arvoja. Manuaalisessa tarkistuksessa keskitytään siihen, että oikeat kuvaajat näkyvät, valinnat toimivat, aikaleimat ja yksiköt ovat ymmärrettäviä ja arvot esitetään oikeissa näkymissä.
 
 ## Testien ajaminen
 

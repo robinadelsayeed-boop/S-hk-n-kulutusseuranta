@@ -4,3 +4,5 @@ pytest>=8
 streamlit>=1.40
 plotly>=5.20
 pandas>=2.2
+# Projektin oma paketti (src/sahko), jotta PYTHONPATH-asetusta ei tarvita
+-e .
