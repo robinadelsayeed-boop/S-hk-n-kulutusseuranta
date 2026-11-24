@@ -92,21 +92,3 @@ python scripts/generoi_synteettinen_kulutus.py --alku 2026-10-01 --loppu 2026-11
 **Oma kulutusdata:** Fingrid Oma Datahub (oma.datahub.fi). Ei tallenneta repoon.
 
 **Pörssihinnat:** ENTSO-E Transparency Platform (https://transparency.entsoe.eu/), Day-ahead Prices [12.1.D], hinta-alue Suomi (EIC `10YFI-1--------U`), RESTful API (`documentType=A44`). Hinnat ovat €/MWh ilman ALV:ta ja muunnetaan yksikköön snt/kWh jakamalla 10:llä. 1.10.2025 alkaen hinnat ovat 15 minuutin jaksoissa ja sitä ennen tunneittain; tuntihinta käytetään tunnin kaikille neljälle vartille. Rajapinnan käyttö on maksutonta mutta vaatii rekisteröitymisen ja henkilökohtaisen avaimen. Repoon tallennettu hintatiedosto `data/esimerkki/hinnat_FI_2026-10.csv` on haettu tällä ohjelmalla. *(Käyttöehdot: täydennä tarkistuksen jälkeen.)*
-
-## Työn tila
-
-Tilanne 23.11.2026.
-
-| Osa | Tila | Vastuu |
-|---|---|---|
-| Repon pohja, `.gitignore`, AI-ohjeet | valmis | Oskari |
-| V1 kulutuksen tuonti + testit | valmis; tarkistettu omalla Datahub-tiedostolla | Oskari |
-| L1 synteettinen kulutusdata | valmis | Oskari |
-| V2 hintojen haku, tallennettu hintatiedosto + testit | valmis; tarkistettu ENTSO-E:n verkkopalvelua vasten | Oskari |
-| Käyttöliittymä (Streamlit, `app.py`) | kulutus-, kustannus- ja tuntinäkymät tehty | Robin |
-| V3 kustannuslaskenta | aloitettu: kulutus × pörssihinta, kustannus yhteensä ja valitulle päivälle; marginaali, perusmaksu, ALV ja testit tekemättä | Robin |
-| V4 sopimusvertailu ja tasapainohinta | tekemättä | Robin |
-| V5 keskihinnat ja kuvaaja | painotettu keskihinta ja tuntikuvaajat tehty; jakson keskihinta, kellonaikakuvaaja ja testit tekemättä | Robin |
-| Validointi oikeaa laskua vasten | tekemättä | sovitaan |
-| L1 ajo puhtaassa ympäristössä | ennen palautusta | sovitaan |
-| Video, `04-palautus.md` | tekemättä | yhdessä |
