@@ -5,12 +5,40 @@ from datetime import timedelta
 from pathlib import Path
 
 from sahko.kulutus import lue_kulutus_teksti
-from sahko.hinnat import lue_hinnat
+from sahko.hinnat import lue_hinnat, hae_entsoe, lue_avain, HintahakuVirhe
 from sahko.laskenta import laske_kustannukset, vertaile_sopimukset
 
 
 st.set_page_config(page_title="Sähkönkulutus", layout="wide")
 st.title("Sähkönkulutuksen seuranta")
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def hae_oikeat_hinnat(alku_utc, loppu_utc, api_avain):
+    """Hakee ENTSO-E-hinnat ja välimuistittaa tuloksen tunniksi."""
+    tulos = hae_entsoe(alku_utc, loppu_utc, api_avain)
+    return tulos.hinnat, len(tulos.ristiriidat)
+
+
+hintalahde = st.radio(
+    "Hintadatan lähde",
+    ["Synteettinen esimerkkidata", "Oikea ENTSO-E-data"],
+    horizontal=True,
+    help="Valitse käytetäänkö projektin mukana tulevaa esimerkkihintadataa vai haetaanko hinnat ENTSO-E:stä.",
+)
+
+if hintalahde == "Synteettinen esimerkkidata":
+    st.info(
+        "Käytössä on projektin mukana tuleva synteettinen esimerkkihintadata. "
+        "API-avainta ei tarvita."
+    )
+else:
+    st.warning(
+        "**Oikean ENTSO-E-datan käyttö vaatii API-avaimen sovelluksen backendissä.** "
+        "Aseta avain backendin ympäristömuuttujaan `ENTSOE_API_KEY` tai projektin "
+        "juuren `.env`-tiedostoon. Avainta ei pidä syöttää tähän käyttöliittymään "
+        "eikä tallentaa GitHub-repositorioon."
+    )
 
 tiedosto = st.file_uploader("Lataa kulutuksen CSV-tiedosto", type=["csv"])
 
@@ -39,13 +67,49 @@ if tiedosto is not None:
     alku_utc = min(tulos.vartit)
     loppu_utc = max(tulos.vartit) + timedelta(minutes=15)
 
-    hintapolku = Path("data/esimerkki/hinnat_FI_2026-10.csv")
+    if hintalahde == "Synteettinen esimerkkidata":
+        hintapolku = Path("data/esimerkki/hinnat_FI_2026-10.csv")
 
-    if not hintapolku.exists():
-        st.error("Esimerkkihintatiedostoa ei löytynyt.")
-        st.stop()
+        if not hintapolku.exists():
+            st.error("Esimerkkihintatiedostoa ei löytynyt.")
+            st.stop()
 
-    hinnat = lue_hinnat(hintapolku, alku_utc, loppu_utc)
+        hinnat = lue_hinnat(hintapolku, alku_utc, loppu_utc)
+
+    else:
+        try:
+            api_avain = lue_avain()
+            with st.spinner("Haetaan pörssihintoja ENTSO-E:stä..."):
+                hinnat, ristiriitoja = hae_oikeat_hinnat(
+                    alku_utc,
+                    loppu_utc,
+                    api_avain,
+                )
+
+            if not hinnat:
+                st.error(
+                    "ENTSO-E ei palauttanut hintatietoja valitulle aikavälille. "
+                    "Tarkista aikaväli ja API-avaimen toimivuus."
+                )
+                st.stop()
+
+            if ristiriitoja:
+                st.warning(
+                    f"ENTSO-E palautti {ristiriitoja} ristiriitaista hintahavaintoa. "
+                    "Ensimmäinen havainto säilytettiin."
+                )
+
+            st.success(
+                f"Haettiin {len(hinnat)} varttihintaa suoraan ENTSO-E:stä."
+            )
+
+        except HintahakuVirhe as virhe:
+            st.error(f"ENTSO-E-hintahaku epäonnistui: {virhe}")
+            st.info(
+                "Varmista, että ENTSOE_API_KEY on asetettu sovelluksen backendissä "
+                "tai että projektin juuressa on .env-tiedosto, jossa avain on."
+            )
+            st.stop()
 
     # Lasketaan kustannukset
     laskenta = laske_kustannukset(tulos.vartit, hinnat)
@@ -62,7 +126,7 @@ if tiedosto is not None:
         lambda paiva: paiva - timedelta(days=paiva.weekday())
     )
     df["kuukausi"] = df["aika"].dt.strftime("%Y-%m")
-
+    
     yhteensa = df["kulutus"].sum()
     alku = df["aika"].min().strftime("%d.%m.%Y")
     loppu = df["aika"].max().strftime("%d.%m.%Y")
@@ -303,7 +367,7 @@ if tiedosto is not None:
         st.plotly_chart(hinta_fig, use_container_width=True)
 
     with oikea:
-        st.subheader("Kuukauden kalleimmat kulutustunnit")
+        st.subheader("Kalleimmat kulutustunnit")
 
         jakson_data = nakyman_data.copy()
         jakson_data["tunti_utc"] = jakson_data["aika_utc"].dt.floor("h")
@@ -430,7 +494,7 @@ if tiedosto is not None:
                 st.caption("Sama ALV-kanta molemmille sopimuksille.")
 
             laske_vertailu = st.form_submit_button("Laske sopimusvertailu")
-
+    
         if laske_vertailu:
             try:
                 vertailu = vertaile_sopimukset(
